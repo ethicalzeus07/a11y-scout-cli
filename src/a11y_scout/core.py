@@ -10,10 +10,9 @@ def scan(url: str, out_json: Path | None = None) -> dict:
         page = browser.new_page()
         page.goto(url)
         # inject axe
-        axe_js = page.evaluate(f"await (await fetch('{AXE_JS_URL}')).text()")
-        page.add_script_tag(content=axe_js)
+        page.add_script_tag(url=AXE_JS_URL)
         # run axe in page context
-        results = page.evaluate("await axe.run(document)")
+        results = page.evaluate("() => axe.run(document)")
         browser.close()
     if out_json:
         out_json.write_text(json.dumps(results, indent=2))

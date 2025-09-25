@@ -1,0 +1,2 @@
+[console_scripts]
+a11y-scout = a11y_scout.cli:main
