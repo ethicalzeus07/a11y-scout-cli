@@ -15,5 +15,6 @@ def scan(url: str, out_json: Path | None = None) -> dict:
         results = page.evaluate("() => axe.run(document)")
         browser.close()
     if out_json:
-        out_json.write_text(json.dumps(results, indent=2))
+        violations_only = results.get('violations', [])
+        out_json.write_text(json.dumps(violations_only, indent=2))
     return results

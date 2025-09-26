@@ -1,6 +1,15 @@
 pyproject.toml
 src/a11y_scout/__init__.py
 src/a11y_scout/cli.py
+src/a11y_scout/cli_final.py
+src/a11y_scout/cli_final_simple.py
+src/a11y_scout/cli_fixed.py
+src/a11y_scout/cli_new.py
+src/a11y_scout/cli_simple.py
+src/a11y_scout/cli_simple_banner.py
+src/a11y_scout/cli_simple_final.py
+src/a11y_scout/cli_simple_text.py
+src/a11y_scout/cli_working.py
 src/a11y_scout/core.py
 src/a11y_scout.egg-info/PKG-INFO
 src/a11y_scout.egg-info/SOURCES.txt
