@@ -98,40 +98,29 @@ a11y-scout --help
 
 ## 🎯 **Usage Examples**
 
-### **Basic Scanning** 🔍
+### **Basic Usage** 🔍
 
 ```bash
-# Scan any website
-a11y-scout https://github.com
+# Run the tool - it will prompt for URL
+a11y-scout
 
-# Scan with custom output
-a11y-scout https://example.com --out accessibility-report.json
-
-# Verbose mode for detailed progress
-a11y-scout https://example.com --verbose
+# The tool will ask for a website URL to scan
+# Results will be displayed in the terminal
+# Option to save results to JSON file
 ```
 
-### **CI/CD Integration** 🔄
+### **Save Results** 💾
 
 ```bash
-# Fail build on accessibility violations
-a11y-scout https://staging.example.com --fail-on 5
-
-# Generate reports for monitoring
-a11y-scout https://prod.example.com --out reports/accessibility-$(date +%Y%m%d).json
+# The tool will prompt you to save results after scanning
+# Results are saved as JSON format
 ```
 
-### **Advanced Configuration** ⚙️
+### **Environment Variables** ⚙️
 
 ```bash
-# Custom timeout settings
-A11Y_SCOUT_TIMEOUT=30000 a11y-scout https://slow-site.com
-
 # Disable banner for CI environments
 A11Y_SCOUT_NO_BANNER=1 a11y-scout https://example.com
-
-# Custom user agent
-A11Y_SCOUT_USER_AGENT="MyBot/1.0" a11y-scout https://example.com
 ```
 
 ---
@@ -267,52 +256,42 @@ python -m pytest tests/
 
 ## 🎨 **Customization & Theming**
 
-### **Color Schemes** 🌈
+### **Environment Variables** 🌈
 
 ```bash
-# Custom color palette
-export A11Y_SCOUT_COLORS="neon,cyberpunk,retro"
-
-# Disable colors for CI
-export A11Y_SCOUT_NO_COLOR=1
-
-# Custom banner style
-export A11Y_SCOUT_BANNER_STYLE="minimal,retro,futuristic"
+# Disable banner display
+export A11Y_SCOUT_NO_BANNER=1
 ```
 
-### **Output Formats** 📊
+### **Output Format** 📊
 
 ```bash
-# JSON output for integration
-a11y-scout https://example.com --format json
-
-# CSV output for spreadsheets
-a11y-scout https://example.com --format csv
-
-# HTML report generation
-a11y-scout https://example.com --format html --out report.html
+# JSON output is the only supported format
+# The tool saves violations as JSON when requested
 ```
 
 ---
 
-## 🚀 **Performance & Optimization**
+## 🚀 **How It Works**
 
 <div align="center">
 
-### ⚡ **Speed Benchmarks**
+### ⚡ **Technical Details**
 
-| Website Size | Scan Time | Memory Usage | CPU Usage |
-|--------------|-----------|--------------|-----------|
-| **Small** (< 1MB) | ~2-3 seconds | ~50MB | ~15% |
-| **Medium** (1-10MB) | ~5-8 seconds | ~100MB | ~25% |
-| **Large** (10MB+) | ~10-15 seconds | ~200MB | ~40% |
+| Component | Technology | Purpose |
+|-----------|-------------|---------|
+| **Browser Automation** | Playwright | Launches Chromium in headless mode |
+| **Accessibility Engine** | axe-core 4.7.2 | Industry-standard accessibility testing |
+| **Scanning Process** | JavaScript injection | Runs axe-core in page context |
+| **Output Format** | JSON | Structured violation data |
 
-### 🎯 **Optimization Tips**
+### 🎯 **Scanning Process**
 
-- Use `--headless` mode for faster scanning
-- Enable `--parallel` for multiple page scanning
-- Configure `--timeout` for slow-loading sites
-- Use `--cache` for repeated scans
+1. **Launch Browser** - Playwright starts Chromium
+2. **Navigate to URL** - Load the target website
+3. **Inject axe-core** - Add accessibility testing library
+4. **Run Analysis** - Execute accessibility checks
+5. **Extract Results** - Return violations and metadata
 
 </div>
 
@@ -357,65 +336,43 @@ a11y-scout https://example.com --format html --out report.html
 
 ---
 
-## 🎯 **Use Cases & Examples**
+## 🎯 **Use Cases**
 
-### **Web Development Teams** 👥
+### **Web Development** 👥
 
 ```bash
-# Pre-commit accessibility checks
-git add .
-a11y-scout https://localhost:3000 --fail-on 0
-git commit -m "Fix accessibility issues"
+# Test your website for accessibility issues
+a11y-scout
+# Enter your website URL when prompted
+# Review violations and fix them
 ```
 
-### **QA Testing** 🧪
+### **Quality Assurance** 🧪
 
 ```bash
-# Automated accessibility testing
-a11y-scout https://staging.example.com --out qa-report.json
-if [ $? -ne 0 ]; then
-    echo "Accessibility issues found!"
-    exit 1
-fi
-```
-
-### **Content Management** 📝
-
-```bash
-# Scan CMS-generated pages
-a11y-scout https://cms.example.com/page/123 --verbose
+# Check accessibility before deployment
+a11y-scout
+# Save results to file for documentation
+# Share findings with development team
 ```
 
 ---
 
-## 🎨 **Advanced Features**
+## 🎨 **Features**
 
-### **Custom Rules Engine** ⚙️
+### **Rich Terminal Interface** ⚙️
 
-```python
-# Custom accessibility rules
-from a11y_scout import scan, CustomRule
+- **Animated Banners** - Dynamic ASCII art with wave effects
+- **Color-coded Results** - Different colors for violation severity
+- **Interactive Prompts** - User-friendly input and save options
+- **Progress Indicators** - Spinning animations during scanning
 
-# Define custom rule
-class CustomColorContrast(CustomRule):
-    def check(self, element):
-        # Custom contrast checking logic
-        pass
+### **Accessibility Standards** 🔌
 
-# Use in scanning
-results = scan("https://example.com", custom_rules=[CustomColorContrast()])
-```
-
-### **Plugin System** 🔌
-
-```bash
-# Install community plugins
-pip install a11y-scout-plugin-wcag3
-pip install a11y-scout-plugin-mobile
-
-# Use plugins
-a11y-scout https://example.com --plugins wcag3,mobile
-```
+- **WCAG 2.x Compliance** - Tests against accessibility guidelines
+- **axe-core Integration** - Industry-standard testing engine
+- **Detailed Reports** - Comprehensive violation information
+- **Fix Suggestions** - Actionable improvement guidance
 
 ---
 
@@ -425,94 +382,27 @@ a11y-scout https://example.com --plugins wcag3,mobile
 
 | Issue | Solution | Prevention |
 |-------|----------|------------|
-| **Browser not found** | `playwright install chromium` | Include in setup script |
-| **Timeout errors** | Increase `--timeout` value | Monitor site performance |
-| **Memory issues** | Use `--headless` mode | Optimize system resources |
-| **Network errors** | Check connectivity | Verify URL accessibility |
+| **Browser not found** | `playwright install chromium` | Install Playwright browsers |
+| **Logo not showing** | Install chafa | `brew install chafa` or `sudo apt-get install chafa` |
+| **Network errors** | Check URL accessibility | Verify website is reachable |
+| **Permission errors** | Check file permissions | Ensure write access for JSON output |
 
-### **Debug Mode** 🐛
+### **Common Solutions** 🐛
 
 ```bash
-# Enable detailed logging
-A11Y_SCOUT_DEBUG=1 a11y-scout https://example.com
+# Install Playwright browsers if missing
+playwright install chromium
 
-# Verbose output
-a11y-scout https://example.com --verbose --debug
+# Check if chafa is installed for logo display
+brew install chafa  # macOS
+sudo apt-get install chafa  # Ubuntu/Debian
 
-# Save debug logs
-a11y-scout https://example.com --debug --out debug.log
+# Disable banner if having display issues
+A11Y_SCOUT_NO_BANNER=1 a11y-scout
 ```
 
 ---
 
-## 🎨 **Community & Support**
-
-<div align="center">
-
-### 🤝 **Get Involved**
-
-| Platform | Purpose | Link |
-|----------|---------|------|
-| **GitHub** | Issues, PRs, Discussions | [github.com/yourusername/a11y-scout](https://github.com/yourusername/a11y-scout) |
-| **Discord** | Real-time chat, support | [discord.gg/a11y-scout](https://discord.gg/a11y-scout) |
-| **Twitter** | Updates, announcements | [@a11yscout](https://twitter.com/a11yscout) |
-| **Email** | Direct support | [support@a11yscout.dev](mailto:support@a11yscout.dev) |
-
-### 🎯 **Contributing**
-
-- 🐛 **Bug Reports** - Help us fix issues
-- 💡 **Feature Requests** - Suggest new capabilities  
-- 📖 **Documentation** - Improve guides and examples
-- 🧪 **Testing** - Test with different websites
-- 🎨 **UI/UX** - Enhance the terminal interface
-
-</div>
-
----
-
-## 📊 **Statistics & Impact**
-
-<div align="center">
-
-### 🎯 **Project Metrics**
-
-| Metric | Value | Trend |
-|--------|-------|-------|
-| **GitHub Stars** | ⭐ 1,234 | 📈 +15% this month |
-| **Downloads** | 📦 45,678 | 📈 +25% this week |
-| **Contributors** | 👥 23 | 📈 +3 this month |
-| **Issues Resolved** | ✅ 156 | 📈 98% resolution rate |
-
-### 🌍 **Global Impact**
-
-- **Websites Scanned**: 1M+ accessibility checks
-- **Violations Found**: 2.5M+ issues identified
-- **Developers Helped**: 10K+ developers worldwide
-- **Accessibility Improved**: 95% of scanned sites
-
-</div>
-
----
-
-## 🎨 **Roadmap & Future**
-
-### **Upcoming Features** 🚀
-
-- [ ] **AI-Powered Suggestions** - Smart fix recommendations
-- [ ] **Visual Regression Testing** - Screenshot comparisons
-- [ ] **Mobile Accessibility** - Touch and gesture testing
-- [ ] **Performance Integration** - Core Web Vitals correlation
-- [ ] **Team Collaboration** - Shared reports and dashboards
-
-### **Version Timeline** 📅
-
-| Version | Features | Release Date |
-|---------|----------|--------------|
-| **v0.2.0** | Enhanced reporting, better UI | Q2 2024 |
-| **v0.3.0** | Plugin system, custom rules | Q3 2024 |
-| **v1.0.0** | Production ready, enterprise features | Q4 2024 |
-
----
 
 ## 🎯 **License & Legal**
 
@@ -540,11 +430,11 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ### **Get Started Today!** 🚀
 
 ```bash
-# Quick install
-pip install a11y-scout
+# Install the tool
+pip install -e .
 
 # Start scanning
-a11y-scout https://your-website.com
+a11y-scout
 ```
 
 ---
@@ -554,7 +444,7 @@ a11y-scout https://your-website.com
 **A11Y Scout** - *Making the web accessible, one scan at a time* ✨
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github&logoColor=white)](https://github.com/yourusername/a11y-scout)
-[![Documentation](https://img.shields.io/badge/Docs-Read%20More-blue?style=for-the-badge&logo=gitbook&logoColor=white)](https://docs.a11yscout.dev)
-[![Support](https://img.shields.io/badge/Support-Get%20Help-green?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/a11y-scout)
+[![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Playwright](https://img.shields.io/badge/Playwright-1.45+-green?style=for-the-badge&logo=playwright&logoColor=white)](https://playwright.dev)
 
 </div>
