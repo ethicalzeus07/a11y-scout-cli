@@ -56,14 +56,13 @@ a11y-scout https://example.com
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/a11y-scout.git
+git clone https://github.com/ethicalzeus07/a11y-scout-cli.git
 cd a11y-scout
 
 # Install dependencies
 pip install -e .
 
-# Optional: Install chafa for enhanced logo display
-# macOS
+
 brew install chafa
 
 # Ubuntu/Debian
